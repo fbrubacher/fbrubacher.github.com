@@ -1,0 +1,78 @@
+---
+layout: post
+title: Short Review of Ruby Best Practices
+---
+
+h1. {{ page.title }}
+
+p(meta). September 23, 2009 - Montevideo
+
+h2. Review and notes
+
+Recently I got my hands on Ruby Best Practices book. I found it to be a great read, especially chapters 2 and 3, are worth the price of the book. 
+
+*Chapter 1* is a great introduction to test driven development, i already knew almost if not all what this chapter exposes but i found it the style to be very accesible.  
+
+Some of the good habit the author mentions 
+* Well focused examples (well you get this kinda for free when you use RSpec or Shoulda) 
+* Testing exceptions (assert_raises, assert_nothing_raised)
+* Run the whole suite once (well this obvious too) 
+* Advances techniques (mocking and stubbing) 
+* Testing complex output
+* Test helpers
+* Custom assertions
+
+*Chapter 2* is called Designing Beautiful APIs, it starts with the basics and continues to go on to some advanced tips.
+
+It starts with 
+* Flexible arguments (standard ordinal arguments, optional arguments, starred arguments, blocks) 
+
+And then the chapter continues with an indepth look at blocks, showing uses of them to design an api .
+* Uses of blocks (limiting mutable data with enumerable, blocks to abstract pre-post processing, blocks as dynamic callbacks, blocks for interface simplification _nice_, use of custom operators like the (<=> spaceship). 
+
+*Chapter 3* is the best in the book in my opinion.
+
+It starts with an explanation of a module called BlankState , which is built-in in Ruby 1.9 as _BasicObject_. Basically their purporses is to avoid namespace clashes. 
+
+Then it continues with a section called building fexible instances which has a good starting tip called _Making instance_eval optional_ . Basically what this tip mean is that when instance_evaling a block you cannot access variables outside the scope of the block, so what we do is check if the block arity is 0 or biggger. If it is zero then we can do instance_eval else we do block.call .
+
+The following section is a must in any advanced ruby book: Method Missing and Send.
+
+After that there is a good small tip on dual purpose accessors, which is a doubt a fellow member of ruby argentina had some days ago. 
+
+Implementing per object behaviour is a nice introudction on how to create as stubber framework. 
+
+There is next a good practice advice on how to dynamically add methods to existing classes without clashing with other libraries. Let's say that your method names are called ln and ft: 
+
+
+{% highlight ruby %}
+[:in, :ft].each do |e| if instance_methods.include?(e)
+  raise "Method '#{e}' exists!" end
+end
+{% endhighlight %}
+
+Modification via aliasing is the next topic, it shows that when aliasing you still conserve the old method and it is useful and logic to call it from the new method. 
+
+Finally the icing on the cake is "Building Classes and Modules programatically". Here the author introduces the Camping framework as it shows a good example of how we can accept block parameters from the user of our code/api, in a way that supports a DSL style, using for this abstraction an anonymous class. 
+
+The author uses this example : 
+
+{% highlight ruby %}
+format :txt do def render
+  "Hello #{full_name} from plain text" end
+end
+{% endhighlight %}
+
+where format is implemented like this : 
+
+{% highlight ruby %}
+def format(name, options={}, &block)
+ formats[name] = Class.new(options[:base] || Fatty::Format, &block)
+end
+{% endhighlight %}
+
+Finally the author speaks about hooks like (method_added, inherited, included)
+
+h2. Conculusion 
+
+This is a great book for beginner or intermediate programmers of Ruby alike and for expert progammers it can be a good remainder of lots of already known feautures of ruby but you had forgotten to use in a while. 

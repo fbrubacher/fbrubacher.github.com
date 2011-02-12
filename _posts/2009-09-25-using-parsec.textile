@@ -1,0 +1,115 @@
+---
+layout: post
+title: HASKELL Using Parsec
+---
+
+h1. {{ page.title }}
+
+p(meta). Sep 25, 2009 - Philadelphia
+
+
+h2. What is Parsec ? 
+
+Parsec is a free monadic parser combinator library for Haskell. Allthough combinator parsing is well known in literature, most libraries are only implemented for personal use or for small research examples. Parsec is designed from scratch as an industrial-strength parser library.
+
+From the documentation of Text.ParserCombinators.Parsec.Combinator package  
+
+h2. "Basics'
+
+h3. Many
+
+many p applies the parser p one or more times. Returns a list of the returned values of p.
+
+h3. EndBy , SepBy 
+
+sepBy p sep parses zero or more occurrences of p, separated by sep. Returns a list of values returned by p.
+
+endBy p sep parses zero or more occurrences of p, seperated and ended by sep. Returns a list of values returned by p.
+
+
+h2. "Intermediate" techniques 
+
+Parsing with Applicative functors. From the documentation of Control.Applicative. 
+
+h3. <$> 
+
+A synonym for fmap in applicative functors.
+
+<$ uses the value on the left if the parser on the right succeeds.
+
+
+h3. <*> 
+
+Sequential application. Applies the parser on its left then the parser on its right.
+
+*>
+Sequence actions, discarding the value of the first argument.
+
+<*
+Sequence actions, discarding the value of the second argument.
+
+(<**>) :: Applicative f => f a -> f (a -> b) -> f b
+A variant of <*> with the arguments reversed.
+
+
+h2. "Advanced" techniques
+
+h3. Choice/Option 
+
+choice ps tries to apply the parsers in the list ps in order, until one of them succeeds. Returns the value of the succeeding parser.
+
+option x p tries to apply parser p. If p fails without consuming input, it returns the value x, otherwise the value returned by p.
+
+h3. <|> 
+
+<|> only attempts the option in the right if the option on the left consumed no input.
+
+h3. Try/Lookahed 
+
+In trying to explain the try combinator i will re-write and re-use examples from the excellent RWH book . 
+
+Let's say that we want to check if we reached the end of a line. 
+
+{% highlight haskell %}
+-- file: ch16/csv5.hs
+eol = 
+    do char '\n'
+       char '\r' <|> return '\n'
+{% endhighlight %}
+
+
+Now let's test this function. Remember that >> short-circuits the first computation only taking in consideration the effects of the second computation.
+
+{% highlight haskell %}
+    ghci> :l csv5.hs
+    [1 of 1] Compiling Main             ( csv5.hs, interpreted )
+    Ok, modules loaded: Main.
+    ghci> parse (eol >> eof) "" "\n\r"
+    Loading package parsec-2.1.0.0 ... linking ... done.
+    Right ()
+    ghci> parse (eol >> eof) "" "\n"
+    Right ()
+{% endhighlight %}
+
+Parsec has a function called try that is used to express lookaheads, try takes one function, a parser. It applies that parser. If the parser doesn't suceed trye behaves as if it hadn't consumed any input at alll. So , when you use try on the left side of <|>, Parsec will try the option on the rifht even if the left side failed after consuming some input. Try only has an effect if it is ont he left of a <|>.
+
+Another operator we can use is the <?> operator that when in the event of a failure, instead of trying another parser it presents an error message. 
+
+Parsec has a function called try that is used to express lookaheads, try takes one function, a parser. It applies that parser. If the parser doesn't suceed trye behaves as if it hadn't consumed any input at alll. So , when you use try on the left side of <|>, Parsec will try the option on the rifht even if the left side failed after consuming some input. Try only has an effect if it is ont he left of a <|> 
+
+h2. Extras
+
+h3. readSigned 
+
+readSigned takes a parser for an unsigned number and turns it into a parser for possible signed numbers.
+
+h3. monadPlus
+
+Parsec's GenParser monad is an instance of MonadPlus.
+
+{% highlight haskell %}
+instance MonadPlus (GenParser tok st) where
+    mzero = fail "mzero"
+    mplus = (<|>)
+{% endhighlight %}
+

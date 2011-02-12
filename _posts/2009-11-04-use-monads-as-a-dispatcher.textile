@@ -1,0 +1,44 @@
+---
+layout: post
+title: HASKELL Use monads as dispatchers
+---
+
+h1. {{ page.title }}
+
+p(meta). Nov 04, 2009 - Montevideo
+
+h3. Introduction to the problem
+
+Couple days ago i started writing a post about how monads not only are useful for stateful programming but also for type dispatching. Double dispatching is a very common problem in programming and it shows up in situations where a computation depends on the runtime types of its arguments. Wikipedia gives us an example: 
+
+Personnel management systems may dispatch different types of jobs to different personnel. A schedule algorithm passed a person object typed as an accountant and a job typed as engineering will reject the scheduling of that person for that job.
+
+There have been many ways of resolving this issue, all of them revolve about the idea of separathing the algorithm of the data types it handles. The most famous way is the Visitor pattern. Another approach that is better than Visitor pattern is the multimethods, which is a feature of few languages, like Common Lisp (CLOS), basically in multimethods dispatches treating all the arguments of a function the same, analyzing its arguments at runtime.
+
+h3. Enter Haskell
+
+Well of course this at run-time discussion of data types doesn't apply to Haskell and so we are left wondering how to combine computations of different types. 
+
+It is nice to think about functors as containers in a higher-space where you can't directly access the data contained in this containers, but you can inderectly use it by transforming it; and it also nice to think about Monads a thing that can collapse this contaniners using "join", so for example something of the type IO(IO()) we can easily convert it to IO().
+
+That works to the most outer level of your type but what about when you want to combine a function of type IO a with a function a -> IO b, certainly you cannot use join then. The answer coming right up.
+
+h3. Monads to the rescue
+
+First you should noticeas Dan Piponi says that Monad is a type-class and so intrinsically it is way of using different types. For example if a type derives the Eq type-class you know there are certain functions you can use, no matter what type.
+
+But in : 
+
+"{color:red}Dan Piponi's Trivial Monad":http://blog.sigfpe.com/2007/04/trivial-monad.html
+
+Dan also argues that Monads are much more, are a way of combining computations, thanks to, you've guessed it : Bind. 
+
+The first example RWH gives when it explains how to combine computations is the example that i like the most. Combine computations using the Maybe Monad. I was going to try to re-expain it but i found that Mark Chu-Carroll has a blog post about it in his famous Good Math blog. 
+
+"{color:red}Monads for Control":http://scienceblogs.com/goodmath/2007/02/using_monads_for_control_maybe_1.php
+
+Another example that i found useful was combinaning probability computations in a Probability mondad, this to my dismay was also done numerous times, first in a paper and then in a blog post : 
+
+"{color:red}Randmohacks Probability":http://www.randomhacks.net/articles/2007/02/22/bayes-rule-and-drug-tests
+
+So basically there it is, so next times you are going through the hoops writing functions and trying to put together different types ask yourself if the Monad type-class is not a better abstracition.

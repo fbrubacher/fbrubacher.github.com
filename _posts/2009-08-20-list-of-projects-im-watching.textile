@@ -1,0 +1,73 @@
+---
+layout: post
+title: List of Github projects
+---
+
+h1. {{ page.title }}
+
+p(meta). Aug 20, 2009 - Montevideo
+
+h2. Small description of items im following
+*hnn
+Haskell Neural Network
+*jsvars
+Add javascript variables and objects to rails projects without ugly js-erb stuffed in views. 
+*validatious-on-rails
+Rails plugin that maps model validations to class names on form elements to integrate with validatious
+*chef-deploy
+A gem that provides resources and providers for deploying ruby web apps from chef recipes
+*trapeze-rb
+Ruby Bindings for the Trapeze AMQP Router and Load Balancer
+*hurl
+A web-app that makes http request and stores them in redis.
+*devise
+Flexible authentication solution for Rails with Warden
+*suspedners
+startup app with factorygirl and shoulda
+*loli 
+simpel dsl for haskell web apps
+*swfupload_fu
+SWFUpload is a small JavaScript/Flash library to get the best of both worlds. It features the great upload capabilities of Flash and the accessibility and ease of HTML/CSS.
+*reia
+A ruby/python language for the Erlang VM
+* Fast_context
+Fast Shoulda and Factory Girl tests
+* GitSharp
+A clone of git mad in .net
+* Hubris
+Bridge ruby-haskell 
+* Active Merchant
+simple payment abstraction library used in and sponsered by shopify
+* Arel
+A Relational Algebra for Ruby
+* asi-http-request
+Easy to use CFNetwork wrapper for HTTP requests, Objective-C, Mac OS X and iPhone
+* Braid
+Braid is a simple tool to help track git and svn vendor branches in a git repository.
+* clockingit
+Project Management, Collaboration and Time Tracking. Some additional features are implemented here compared to the original source
+* communityengine
+Adds basic social networking capabilities to your existing application, including users, blogs, photos, clippings, favorites, and more
+* dm-gvideo-adapter
+DataMapper adapter for google video
+* Hemlock
+Framework for building multi-user, real-time web applications
+* homebrew
+Packaging system for Mac OS X 10.5 and above; heavy optimisations, no redundant packages and a bonus beer theme
+* i18n_demo_app
+Demo application to show Rails' new i18n features
+* lncater
+Clojure-based, R-like statistical computing and graphics environment for the JVM
+* integrity
+foca continuos integration server
+* mg 
+minimal gem way to build minimal gem
+* ponghaskell
+* radiant
+Radiant is a no-fluff, open source content management system designed for small teams.
+* spawn
+A ridiculously simple fixtures replacement for your web framework of choice.
+* tog_social
+Tog Platform Social Component  
+* whenever
+Provides clean ruby syntax for defining messy cron jobs and running them Whenever.

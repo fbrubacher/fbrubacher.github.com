@@ -1,0 +1,52 @@
+---
+layout: post
+title: HASKELL How I learned Monads
+---
+
+h1. {{ page.title }}
+
+p(meta). Aug 21, 2009 - Montevideo
+
+I have been learning haskell for over a year now, on and off and as everybody, one of the most difficult tasks was learning and understanding Monads.
+
+In part i guess it is because i started with the wrong approach. But maybe starting with the wrong approach is the only way you get to understand monads so again, there is no easy way to learn this.
+
+As mostly everyone i started to look for an analogy that would clear things up from me, and basically as the author this blog pointed out "The Monad Fallacy":http://byorgey.wordpress.com/2009/01/12/abstraction-intuition-and-the-monad-tutorial-fallacy/ ,there isn't a good analogy, and some analogies are so wrong that it hurt your learning. 
+
+And I become annoyed with people when they told me that monads are this: 
+
+"Monads are monoids in the category of endofunctors."
+
+{% highlight haskell %}
+	class Monad m where
+    	return :: a -> m a
+    	(>>=) :: m a -> (a -> m b) -> m b
+{% endhighlight %}
+
+This people are *right*.
+
+Monads are that. And that's it. No analogies. 
+
+So WTF is that ? I won't try to tell you. You have to find out by yourself.  I will tell you what i did to _finally_ understand it. 
+
+* Read Chapter 7 of Real World Haskell 
+** Read Chapter 14 and 15 of Real World Haskell and try hard to understand them
+*** Read and re-read The Monad Read # 13.
+
+By now you should have an intuition of what a Monad is and for sure understand _return_ .
+
+Likely the problem still is _bind_ .
+
+We'll try to explain _bind_ in your own words, then re-read the above stuff and try to see if your explanation holds up.
+
+Here are mine mixed with some guys from the irc that helped me :
+
+Bind is *from* the ability to go from a value of type 'a' to a value of type 'b' while performing m effects; we get the ability to just perform whatever effects needed to produce the 'a' and continue before to produce the 'b'.
+
+or from the Monad Reader 13 : 
+
+In other words, x >>= k is a computation which runs x, and then uses the result(s)  of x to *decide* what computation to run second, using the output of the second computation as the result of the entire computation. 
+
+Or even, (m >>= f) is the attachment of an action to a continuation and return x is an action that returns x.
+
+Once you get here, you will also appreciate the definition of Monads as an instance of Applicative and adding the join function which collapses multiples m's into one. But that is another story.

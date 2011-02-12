@@ -1,0 +1,54 @@
+---
+layout: post
+title: The State Monad	
+---
+
+h1. {{ page.title }}
+
+p(meta). Aug 23, 2009 - Montevideo
+
+_Disclaimer: parts of this posts i copied from a post in Something Awful by a user called Bonus._
+
+When i first encountered the State monad i thought it was a mechanism for building FSMs. My intuition wasn't all wrong but in reality what the State Monad does is something much simpler : it does an effectful computation and retains some state. When you thing about it is kind of what we do in normal imperative languages instead that the state would be in that case : the global state.
+
+So basically we can go chaining around State and when we are ready to finally run all he computation we use the runState function. 
+
+So let's return to Haskell, not using the standard libraries we can make our own State monad.
+
+We have to create a *newtype* to encapsulate the data constructor, and also while we are at it we can put an usual function.
+
+{% highlight haskell %}
+newtype State s a = State { runState :: (s -> (a,s)) } 
+{% endhighlight %}
+
+Of course for our monad to be a monad we have to create an instance of the type class Monad. Here is how we do it :
+
+{% highlight haskell %}
+instance Monad (State s) where 
+    return a        = State $ \s -> (a,s)
+    (State x) >>= f = State $ \s -> let (v,s') = x s in runState (f v) s' 
+{% endhighlight %}
+
+Basically what _bind_ does is take one stateful  computation and a function that produces a result (effect) and return a value and and another stateful computation.
+
+It is very common to following idiom to connect two stateful computations: 
+@<stateful computation> >>= \a <stateful computation>@
+
+or
+
+@do t <- return 100@
+
+We could define some more useful functions : 
+
+{% highlight haskell %}
+class MonadState m s | m -> s where 
+    get :: m s
+    put :: s -> m ()
+instance MonadState (State s) s where 
+    get   = State $ \s -> (s,s) 
+    put s = State $ \_ -> ((),s)
+{% endhighlight %}
+
+Get takes the current state and produces it as a result, put x disregards any state it gets and sets x as the state.
+
+Basically that is all that there is to know about State monads. Next time i will try to explain how to combine State with IO and other monads using State Transformer.

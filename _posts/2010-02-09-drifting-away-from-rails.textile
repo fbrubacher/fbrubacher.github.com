@@ -1,0 +1,42 @@
+---
+layout: post
+title: Drifting away from Rails.
+---
+
+h1. {{ page.title }}
+
+p(meta). Feb 09, 2009 - Montevideo
+
+Some days ago I created a thread asking former users of Rails from the local user group, if they are planning to come back once Rails 3 is released. My argument is that there is a lot to like about Rails 3. Increased granularity in components as ActiveSupport or ActiveRecord, that let you chose which of them to use and which not. Improved routing system and rack integration, making each route a rack endpoint itself, and only then calling the rest of the Rails 3 framework. There are many more reasons and you can research them without much effort, really, they are everywhere in the net now. 
+
+A member of the Argentinian user group replied that basically he didn't like Rails before and continues not liking it because of mainly two reasons: 
+
+* Superfluous DSLs
+He explains it best here.
+"link":http://blog.citrusbyte.com/2009/12/15/superfluous-dsls/
+
+It is difficult not to agree with this. Even the guys at Hash rocket mentioned this in a video blog they did this last week. A member of the Uruguayan Rails community even included instance validations in a fork of Rails. More info here: 
+"link":http://twitter.com/oboxodo/statuses/8863463396
+
+* Unnecessary mapping
+Michel explains that in Rails when defining routes you do this: 
+{% highlight ruby %}
+resources :posts
+{% endhighlight %}
+That generates the basic seven methods, most of the time you don't need them all 7 of them. You can trim them using the :only or :except modifiers. This is equivalent to doing this in Sinatra: 
+
+{% highlight ruby %}
+get "/photos" do ... end
+get "/photos/new" do ... end
+post "/photos" do ... end
+get "/photos/:id" do ... end
+get "/photos/:id/edit" do ... end
+put "/photos/:id" do ... end
+delete "/photos/:id" do ... end
+{% endhighlight %}
+
+By doing this explicitly it is easier not to forget to trim the ones you don't need. Leaving untrimmed methods in your routes it is not only a bad practice, but also dangerous from a security standpoint. 
+
+A long discussion was trigged by these topics, at the end everyone learnt something, and neither Sinatra nor Rails were proclaimed winners. 
+
+But for me, each day i start liking Sinatra more and more. It's not because I dislike Rails superfluous DSL or because I like Sinatra's way of defining routes better than Rails. It is just the modularity of Sinatra coupled by the great gem management of Builder that makes me feel that I'm building my own stack each time I use it. And that makes me feel at least that I have more control. And it is a great feeling.
