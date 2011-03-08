@@ -5,4 +5,26 @@ title: Speaking at the RubyConf Uruguay
 
 h1. {{ page.title }}
 
-p(meta). Mar 7, 2011 - Montevideo
+p(meta). Nov 5, 2010 - Montevideo
+
+Without a doubt one of the best experiences this year was hosting the
+local version of RubyConf and being able to speak alongside greate
+speakers like Charles Nutter, Aaron Patterson and Brian Ford.
+
+It was really a humbling experience and one that i would love to
+repeate sometime in the future. My talk was about introducing Clojure
+for Rubysts. Actually it was an ode to functional programming, which
+in case you have following my blog is one of my passions. And i think
+at least i got the attention of a couple of programmers on doing
+things differently or why imperative programming is the new spaghetti
+code.
+
+Other highlights of the conference for my where the talks of Michel
+Martens (Soveran), the talk of Brian Ford and for sure the one of
+Charles Nutter. Charles is a very knowledgeable guy all around and a
+very nice guy. It was really great being ablo to speak to discuss with
+him about actos/agents and other concurrency stuff. I really it is
+really lame when people hate anything J related because they can't
+stand a language (Java).
+
+But in conclusion a great weekend.
