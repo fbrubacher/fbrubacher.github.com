@@ -1,0 +1,50 @@
+---
+layout: post
+title: Latent Semantic Indexing: Easiest way to do unsupervised classification
+---
+
+h1. {{ page.title }}
+
+p(meta). Mar 9, 2011 - Montevideo
+
+Let's say you have a bunch of users and that users have stated their
+preferences about x number of items. You can construct a matrix with
+these preferences, in fact, this often called building a preference
+matrix. So now that we have this matrix, what should we do with it?
+
+If you are into Machine Learning you have probably heard about a
+technique of matrix dimension reduction called : SVD, which stands for
+Singular Value Decomposition. SVD in itself is nothing special its just
+a factorization of the matrix.
+
+So what does this have with LSI ? LSI is a way of utilizing this decomposition for indexing
+ and identifying patterns in the relationships in the preference matrix.
+
+Going back to SVD, one of the sub matrices of this factorization is
+called the singularity Matrix (S). Before doing LSI over the SVD
+factorized matrix we need to prune the S matrix. When we prune a
+matrix we say that we are reducing its dimensions by keeping its first
+singular k values (instead of keeping the total dimension of the
+preference matrix). We are doing a Rank k approximation of the original
+SVD.
+
+Ilya Gregorik says that a good analogy to this would be image
+compression : "[when] you take a RAW file from your camera, and start
+applying JPEG compression. As you down sample, you’re definitely
+changing the similarity between nearby pixels, but hopefully you are
+still preserving the “macro features” of the picture". This is because
+in the SVD decomposition the algorithm sorts the eigenvalues and puts
+the most important first.
+
+Speaking of eigenvalues I forgot to mention that one of the matrices
+in the SVD decomposition is a diagonal matrix of the Eigen values of
+the original preferences matrix. Computing this eigenvalues is
+expensive, so most of the time we use an Algorithm called Laczos
+Algorithm which you can read more about in Wikipedia for example.
+
+Once we did the Rank k approximation it is easy to calculate how a new point
+would fit in this "model". To do this we have to do some simple
+calculations, and then we do some more calculations to compute the
+distance between this new point and the other points in the preferences
+matrix. This will for sure be what i talk about in an upcoming article
+for sure.

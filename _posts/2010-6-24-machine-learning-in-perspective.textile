@@ -1,0 +1,70 @@
+------
+layout: post
+title: Machine Learning in perspective
+---
+
+h1. {{ page.title }}
+
+p(meta). 24 Jun, 2010 - Montevideo
+
+Many of us have encountered Machine Learning without noticing it. The
+First time i noticed it was several years ago  when reading Peter Siebel's well-known
+Practical Common Lisp book. In it there is an example on how to
+construct a Bayesian Spam filter. So there it was a concrete example
+of how to build something that used to be unapproachable for me to say the least.
+
+I'm an Engineer/Programmer by nature not a Machine Learning (ML) guru, so
+when I got started learning about ML i found that is full of names and
+terms, in a sense ML has a stronger relation to Mathematics than to
+Computer programming.
+
+So when I think and explain to others about ML I like to make mental
+divisions or classifications about the methods that I am learning.
+
+The first division that comes to my binary mind is Supervised Learning vs
+Unsupervised Learning. Although I find both to be interesting areas I
+tend to like Supervised Learning more. 
+
+So what are them?
+
+Let's start by saying on what they differ. The basic idea that should
+come to your mind is that they differ on whether their training data
+has been previously labeled/classified (by a human being). So, in the case of
+supervised learning,  starting from that data  the machine can infer
+whether new unlabeled data can be labeled. For this purposes a
+supervised learning algorithm trains what we call a classifier by
+analyzing the training data. A great deal (if not everything) of what we study in
+supervised ML involves generating a better classifier.
+
+Some examples of supervised classifiers are : Bayesian Classifiers,
+Decision tree classifiers, Nearest Neighbors Classifiers and Neural
+Networks Classifiers.
+
+In following articles I will go deeply on two of them Bayesian
+Classifiers and Nearest Neighbors Classifiers.
+
+To give a quick a peek at what are them, i can say that Bayesian
+Classifiers are those that  apply Bayes rule to update (or train) the
+prior distribution of the parameters in the model and computes the
+posterior distribution for prediction. This sounds simple (if you know
+what those basic probability terms mean) but the real complexity is
+introduced when calculating what we call the normalization factor
+which is basically a priori probability of the training data.
+
+Nearest Neighbors classifiers are even easier, we specify a way of measuring the
+difference of the attributes of two samples in a distance format (in
+the naive/common it's simply Euclidian Distance). So if the distance is less than a certain
+amount we can say that those two samples belong to a same class. I
+promise I will deliver examples with cute stuff (maybe unicorns) for
+upcoming posts.
+
+When talking about unsupervised learning, things get hairier because,
+we (as an application developers perspective) have to deal with
+samples that we don't know anything about but some of their characteristics. Based on
+this characteristics we group them in groups that share some of them
+(clustering) and that serves us to have more definition on that
+specific group and make it more specific. As a i said a hairy
+topic. In this category of ML techniques we have  k-means, LSI,
+hierarchical clustering and density based clustering.
+
+We will dwell on them when the time is right.

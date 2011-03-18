@@ -8,22 +8,23 @@ h1. {{ page.title }}
 p(meta). Nov 5, 2010 - Montevideo
 
 Without a doubt one of the best experiences this year was hosting the
-local version of RubyConf and being able to speak alongside greate
+local version of RubyConf and being able to speak alongside great
 speakers like Charles Nutter, Aaron Patterson and Brian Ford.
 
 It was really a humbling experience and one that i would love to
-repeate sometime in the future. My talk was about introducing Clojure
+repeat sometime in the future. My talk was about introducing Clojure
 for Rubysts. Actually it was an ode to functional programming, which
 in case you have following my blog is one of my passions. And i think
 at least i got the attention of a couple of programmers on doing
 things differently or why imperative programming is the new spaghetti
-code.
+code :).
 
-Other highlights of the conference for my where the talks of Michel
+Other highlights of the conference were the talks of Michel
 Martens (Soveran), the talk of Brian Ford and for sure the one of
-Charles Nutter. Charles is a very knowledgeable guy all around and a
-very nice guy. It was really great being ablo to speak to discuss with
-him about actos/agents and other concurrency stuff. I really it is
+Charles Nutter. Charles is an all around very knowledgeable guy and a
+very nice guy. It was really great being able to speak with him, and
+to discuss about actos/agents and other concurrency stuff. One thing
+that let me down, I heard lots of people bashing JRuby, I really it is
 really lame when people hate anything J related because they can't
 stand a language (Java).
 

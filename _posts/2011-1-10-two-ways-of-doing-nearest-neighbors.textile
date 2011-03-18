@@ -1,0 +1,194 @@
+---
+layout: post
+title: Two ways of doing nearest neighbors
+---
+
+h1. {{ page.title }}
+
+p(meta). Jan 10, 2011 - Montevideo
+
+Two ways of doing Nearest Neighbors
+
+In my last post I made a distinction about supervised learning and
+unsupervised learning. One of the supervised methods that i mentioned
+there was Nearest Neighbors. From now on we should call it k-NN. The
+k is an user assigned constant that goes into saying : "Assign the
+query point in space (the one that you want to classify) the same
+class as the most common class among the k samples nearby the point".
+
+So basically now that we understood that k-NN is a "majority voting"
+algorithm then the problem becomes a) how to determine who votes (aka
+determine k) b) how to make it perform well.
+
+One thing to remember is that k-NN is great and easy but 
+
+A naive implementation of naive k-NN in Clojure (taken from
+clj-sys/Infer):
+
+{% highlight clojure %}
+(defn nearest-neighbors [k point dist coll]
+  (take k
+	(sort-by 
+	 #(dist point (vec-but-last %))
+	 coll)))
+{% endhighlight %}
+
+where you have to provide a distance function, usually Euclidian
+distance is used for continous variables. Implementing Euclidian
+distances is trivial:
+
+{% highlight clojure %}
+(defn coord-distances [a b] (map (fn [x] (* x x)) (for [x (map vector a b) ] (reduce
+- x))))
+
+(defn eucluidian-distance [pointa pointb]
+      (reduce + (coord-distances pointa pointb))
+{% endhighlight %}
+
+Two ways of doing Nearest Neighbors
+
+In my last post I made a distinction about supervised learning and
+unsupervised learning. One of the supervised methods that i mentioned
+there was Nearest Neighbors. From now on we should call it k-NN. The
+k is an user assigned constant that goes into saying : "Assign the
+query point in space (the one that you want to classify) the same
+class as the most common class among the k samples nearby the point".
+
+So basically now that we understood that k-NN is a "majority voting"
+algorithm then the problem becomes a) how to determine who votes (aka
+determine k) b) how to make it perform well.
+
+One thing to remember is that k-NN is great and easy but 
+
+A naive implementation of naive k-NN in Clojure (taken from
+clj-sys/Infer):
+
+{% highlight clojure %}
+(defn nearest-neighbors [k point dist coll]
+  (take k
+	(sort-by 
+	 #(dist point (vec-but-last %))
+	 coll)))
+{% endhighlight %}
+
+where you have to provide a distance function, usually Euclidian
+distance is used for continous variables. Implementing Euclidian
+distances is trivial:
+
+(defn coord-distances [a b] (map (fn [x] (* x x)) (for [x (map vector a b) ] (reduce
+- x))))
+
+{% highlight clojure %}
+(defn eucluidian-distance [pointa pointb]
+      (reduce + (coord-distances pointa pointb))
+{% endhighlight %}
+
+However doing nearest-neighbors the naive way is obviously not the
+performant way so i will present two ways of doing it faster : 
+A) Using Kernel Smoothing
+B) Using LSH
+
+Using Kernel Smoothing:
+
+Basically Kernel methods use weights that decrease smoothly to zero as
+the distance increases from the target point, rather than 0/1 weights
+that naive k-NN uses. 
+
+Kernel methods are somewhat complicated and out of the scope of this
+post so i will just show how Infer does it:
+
+{% highlight clojure %}
+(defn smoother [query weigh data]
+  (fn [x]
+    (nadaraya-watson-estimator
+     x weigh (query x data))))
+
+(defn knn-smoother [k data]
+  (smoother #(nearest-neighbors k (vec-but-last %1)
+				euclidean-distance %2)
+	    (comp inverse euclidean-distance)
+
+{% endhighlight %}
+You can find more info ont he Nadraya-Watson estiamtor in Wikipedia.
+
+B) LSH
+
+When we have data that has multiple dimensions is when LSH comes
+especially handy. 
+LSH is based on the notion that if two points are close after a
+projection the will remain close together.
+
+So basically what we do in LSH we start making a random projection
+operation and see which points stay near our query points in this
+projection. Once we get our suspected neighbors we filter them with
+other dimensions. And keep track of which appear close to each other
+in more than one dimension/projection.
+
+The "why" of our use of hashing techniques is as the k-dimensional
+space is sparse we can reduce the number of indexes of each data
+point so we don't have to annotate each of the possible dimensions of
+each function. A conventional hashing function just does that.
+
+So performance wise now the time needed to find a nearest neighbor is
+the time needed to calculate and hash the projections plus the time Tc
+needed to assure that there are no collisions.
+
+It is easy to see that this methods let's us tackle high-sparse
+dimensional data with an acceptable performance.In a next post we will explain with a single concrete example how we
+use it on real life.
+
+
+However doing nearest-neighbors the naive way is obviously not the
+performant way so i will present two ways of doing it faster : 
+A) Using Kernel Smoothing
+B) Using LSH
+
+Using Kernel Smoothing:
+
+Basically Kernel methods use weights that decrease smoothly to zero as
+the distance increases from the target point, rather than 0/1 weights
+that naive k-NN uses. 
+
+Kernel methods are somewhat complicated and out of the scope of this
+post so i will just show how Infer does it:
+
+{% highlight clojure %}
+(defn smoother [query weigh data]
+  (fn [x]
+    (nadaraya-watson-estimator
+     x weigh (query x data))))
+
+(defn knn-smoother [k data]
+  (smoother #(nearest-neighbors k (vec-but-last %1)
+				euclidean-distance %2)
+	    (comp inverse euclidean-distance)
+{% endhighlight %}
+
+You can find more info ont he Nadraya-Watson estiamtor in Wikipedia.
+
+B) LSH
+
+When we have data that has multiple dimensions is when LSH comes
+especially handy. 
+LSH is based on the notion that if two points are close after a
+projection they will remain close together.
+
+So basically what we do in LSH we start making a random projection
+operation and see which points stay near our query points in this
+projection. Once we get our suspected neighbors we filter them with
+other dimensions. And keep track of which appear close to each other
+in more than one dimension/projection.
+
+The "why" of our use of hashing techniques is as the k-dimensional
+space is sparse we can reduce the number of indexes of each data
+point so we don't have to annotate each of the possible dimensions of
+each function. A conventional hashing function just does that.
+
+So performance wise now the time needed to find a nearest neighbor is
+the time needed to calculate and hash the projections plus the time Tc
+needed to assure that there are no collisions.
+
+It is easy to see that this methods let's us tackle high-sparse
+dimensional data with an acceptable performance.In a next post we will explain with a single concrete example how we
+use it on real life.
+
