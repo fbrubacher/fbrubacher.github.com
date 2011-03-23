@@ -1,11 +1,11 @@
-------
+---
 layout: post
-title: Machine Learning in perspective
+title: Machine learning in perspective	
 ---
 
 h1. {{ page.title }}
 
-p(meta). 24 Jun, 2010 - Montevideo
+p(meta). Jun 24, 2010 - Montevideo
 
 Many of us have encountered Machine Learning without noticing it. The
 First time i noticed it was several years ago  when reading Peter Siebel's well-known
@@ -43,6 +43,8 @@ Networks Classifiers.
 In following articles I will go deeply on two of them Bayesian
 Classifiers and Nearest Neighbors Classifiers.
 
+h2. Supervised classifiers
+
 To give a quick a peek at what are them, i can say that Bayesian
 Classifiers are those that  apply Bayes rule to update (or train) the
 prior distribution of the parameters in the model and computes the
@@ -57,6 +59,8 @@ the naive/common it's simply Euclidian Distance). So if the distance is less tha
 amount we can say that those two samples belong to a same class. I
 promise I will deliver examples with cute stuff (maybe unicorns) for
 upcoming posts.
+
+h2. Unsupervised learning
 
 When talking about unsupervised learning, things get hairier because,
 we (as an application developers perspective) have to deal with

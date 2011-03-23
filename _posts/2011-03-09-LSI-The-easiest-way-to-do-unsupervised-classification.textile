@@ -1,11 +1,13 @@
 ---
 layout: post
-title: Latent Semantic Indexing: Easiest way to do unsupervised classification
+title: LSI The easiest way to do unsupervised clasification	
 ---
 
 h1. {{ page.title }}
 
 p(meta). Mar 9, 2011 - Montevideo
+
+
 
 Let's say you have a bunch of users and that users have stated their
 preferences about x number of items. You can construct a matrix with
