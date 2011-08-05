@@ -1,0 +1,30 @@
+---
+layout: post
+title: Speaking at the Euruko 2011
+---
+
+This year I was fortunate enough to travel to Berlin to give a talk in
+Euruko. Thanks to Cubox SA (my employer) for supporting my trip,  and Euruko Germany
+team for having me. The experience was awesome all in all. It was the
+first conference that I attended in Europe and it was awesome to see
+the kind of energy and the vibrant community of Ruby in Europe. 
+
+Talks were very good with some great talks, i especially liked one
+talk about Sentiment Analysis that was more about Machine Learning
+than anything and i also liked Jose Valim's talk about how his pet
+language helped him understand the design decisions of Ruby.
+
+My talk went very good IMHO, it was basically explaining a concept
+from functional programming, that appears a lot in the Clojure
+community that is "The expression problem". Ruby has its own ways of
+solving this issues, all of them suboptimal in my opinion. There was a
+proposal from Matz to have traits, which are basically local-modules
+in Ruby 2.0. It is not clear now if that will be the case for 2.0
+because Matz is more focused in Ruby for embedded devices. I explained
+all that and had time to give a small rant on why i think we as
+programmers should step up our game.
+
+So to sum up it was a great weekend in Germany and fun all
+around. Snacks available every day at all times were awesome. Thanks
+to El Cuervo (Bruno Aguirre) for the support. Kudos to the
+organization team of Euroko Berlin 2011.
