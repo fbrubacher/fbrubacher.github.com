@@ -7,14 +7,25 @@ h1. {{ page.title }}
 
 p(meta). May 13, 2012 - Montevideo
 
-This year I decided to apply for doing Google Summer of Code and got accpeted to develop a Machine Learning libray for the amazing Storm by Nathan Marz. So the idea is to invesitgate and develop certain learning algorithms for stream learning.
+This year I decided to apply for Google Summer of Code and got accpeted to develop a Machine Learning library for the amazing Storm by Nathan Marz. So the idea was: investigate and develop certain learning algorithms for stream learning.
 
-Adaptative learning algorithms (ALAs) us a topic currently under heavy research, so this should be an interesting to say the least. What are ADAs ? ADAs are basically Incremental Learning algorithms that are able to handle Concept Drift. Concept Drift (CD) is basically the concept that as times passes the inherent properties of what you are model change and your model becomes more inaccurate.
+Adaptative learning algorithms (ALAs) is a topic currently under heavy research, so this should be an interesting to say the least. What are ADAs ? ADAs are basically Incremental Learning algorithms that are able to handle Concept Drift. Concept Drift (CD) is basically the idea that as times passes the inherent properties of what you are modeling change and your model becomes more inaccurate.
 
-This might be one of the biggest challanges in building this library but there are others even more fundamental and that I should tackle from the beginning. Maybe the biggest one is that as data from streams arrives you should deal with it in a distributed way and maybe with some limatiation in the amount of resources you have for learning calculations.
+This might be one of the biggest challenges in building this library but there are others, even more fundamental, and that I should tackle them from the beginning. Maybe the biggest one is that as data from streams arrives you should deal with it in a distributed way and maybe with some limitation in the amount of resources you have for learning calculations.
 
-For the distributed issue we should be abla to tackle the capabilities of Storm to help us distribute the workload in a cluster, for the latter issue. we will start by developing certain algorithms for dealing with sketches of data. Sketches are summaries of data that will let us represent linear data coming from a stream in a sublinear way.
+Let's make a comparison of how learning works in an offline setting and in a stream setting:
 
-Sketches are statistcal data structures designed to summarize  properties of the data. These properties can the be queried for questions like : How many times have you seen this particular piece of data ? And sketches will return a meaningful answer  within a customizable probability of returning an error below certain error threshold (also customizable).
+|               |  Offline     |  Stream |
+| Nbr of passes | Unlimited    |  Restricted |
+| Processing time | Unlimited | Restricted |
+| Memory usage | Unlimited | Restricted |
+| Type of result | Accurate | Approximate |
+| Distributed | Maybe | Yes |
 
-The first Sketch I want to implement is the CountMin sketch...
+So, for the first issue, the distributed issue we should be able to tackle it using the capabilities of Storm to help us distribute the workload in a cluster, for the latter issue we will start by developing certain algorithms for dealing with sketches of data. Sketches are summaries of data that will let us represent linear data coming from a stream in a sublinear way.
+
+Sketches are statistical data structures designed to summarize  properties of the data. These properties can the be queried for questions like : How many times have you seen this particular piece of data ? And sketches will return a meaningful answer  within a customizable probability of returning an error below certain error threshold (also customizable).
+
+The first Sketch I want to implement is the CountMin sketch (Cormode & Muthukrishnan). One of the uses for this sketch is the problem of Count Tracking, which generalizes Set membership. Suppose that we have a large number of items and we want to know the frequency in which a specific item appears over time, CountMin provides a way of solving this in a Stream setting. This is clearly useful for example for an online merchant to know what is the frequency of sales of a given item.
+
+The implementation of this sketch we shall discuss in a post in the future, along with next steps towards a real machine learning, not to spoil anything it will have to do with "sliding windows".
