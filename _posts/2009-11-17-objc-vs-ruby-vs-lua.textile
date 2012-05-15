@@ -1,9 +1,0 @@
-Lua is an extensible extension language. It has few types nil, numbers, strings, tables, userdata (pointers to C objects), functions, booleans, and threads.
-
-{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}
-
-{lat= -22.90, long= -43.23, city= "Rio de Janeiro"}
-
-article{"spe96", authors = {"Roberto Ierusalimschy", "Waldemar Celes" }, title = "Lua" } 
-We say that Lua is an extensible extension language [30]. It is an extension language because it helps to extend ap- plications through configuration, macros, and other end-user customizations. Lua is designed to be embedded into a host application so that users can control how the application be- haves by writing Lua programs that access application ser- vices and manipulate application data. It is extensible be- cause it offers userdata values to hold application data and extensible semantics mechanisms to manipulate these values in natural ways. Lua is provided as a small core that can be extended with user functions written in both Lua and C. In particular, input and output, string manipulation, mathema- tical functions, and interfaces to the operating system are all provided as external libraries
-
